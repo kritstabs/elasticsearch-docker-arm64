@@ -52,6 +52,9 @@ COPY config/elasticsearch.yml config/log4j2.properties config/
 # Add entrypoint
 ################################################################################
 
+WORKDIR "/etc/yum.repos.d/"
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
 FROM centos:8
 
 ENV JAVA_HOME /usr/share/elasticsearch/jdk
